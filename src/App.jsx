@@ -39,18 +39,29 @@ function ProductDetail(){
 
   const productIndex=products.findIndex((product)=>product.id==productId)
 
-  console.log(productIndex)
-
   if(productIndex==-1){
     return <div>Producto no encontrado</div>
   }
   const product = products[productIndex]
+
+  const handleNextProduct=() => {
+    const nextProductIndex= (productIndex+1) % products.length;
+    navigate(`/products/${products[nextProductIndex].id}`)    
+  }
+
+  const handlePrevProduct=() => {
+    const prevProductIndex = 
+      (productIndex- 1 + products.length) % products.length;
+    navigate(`/products/${products[prevProductIndex].id}`);
+  };
 
   return(
     <div>
       <h2>Detalle del producto</h2>
       <h3>{product.name}</h3>
       <p>{product.description}</p>
+      <button onClick={handlePrevProduct}>Anterior</button>
+      <button onClick={handleNextProduct}>Siguiente</button>
     </div>
   )
 
